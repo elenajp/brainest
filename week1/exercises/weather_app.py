@@ -34,7 +34,19 @@ def get_geolocation():
     # print()
     lat = result[0]["lat"]
     lon = result[0]["lat"]
-    print(f"the lat is {lat} and the long is {lon}")
+    # print(f"the lat is {lat} and the long is {lon}")
+    return lat, lon
 
 
+def get_current_weather():
+    lat, lon = get_geolocation()
+    response = requests.get(
+        f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}"
+    )
+
+    result = response.json()
+    pprint.pprint(result)
+
+
+get_current_weather()
 get_geolocation()
