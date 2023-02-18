@@ -12,22 +12,35 @@
 
 #     Use the datetime library to display the current time and date. """
 
-import requests
 import json
-import pprint
 import os
+import pprint
+
 import config
+import requests
 
 # import tkinter
 # import pillow
 
 api_key = config.API_KEY
-city_name = "New York"  # Need to get rid of this hard coded value
+chosen_city = str(input("Enter city: "))
+
+
+def select_city(city_name: str):
+    """Takes a city name as a user input and returns that city name."""
+    try:
+        city_name.isalpha()
+    except ValueError:
+        print("Please enter a valid city.")
+        return None
+    return city_name
 
 
 def get_geolocation():
+    """Performs a get request on the open weather map api to return the latitude and longitude for a city."""
+    city = select_city(chosen_city)
     response = requests.get(
-        f"https://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit=1&appid={api_key}"
+        f"https://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={api_key}"
     )
     result = response.json()
     # pprint.pprint(result)
@@ -39,6 +52,7 @@ def get_geolocation():
 
 
 def get_current_weather():
+    """Takes the latitude and longitude as an input and returns the current weather for the chosen city."""
     lat, lon = get_geolocation()
     response = requests.get(
         f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}"
@@ -48,5 +62,6 @@ def get_current_weather():
     pprint.pprint(result)
 
 
+select_city(chosen_city)
 get_current_weather()
 get_geolocation()
