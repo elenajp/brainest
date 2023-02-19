@@ -22,7 +22,7 @@ import config
 # import pillow
 
 api_key = config.API_KEY
-city_name = "New York"
+city_name = "New York"  # Need to get rid of this hard coded value
 
 
 def get_geolocation():
