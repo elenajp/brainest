@@ -19,9 +19,6 @@ import pprint
 import config
 import requests
 
-# import tkinter
-# import pillow
-
 api_key = config.API_KEY
 chosen_city = str(input("Enter city: "))
 
